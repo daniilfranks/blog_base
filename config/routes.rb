@@ -1,11 +1,14 @@
 Rails.application.routes.draw do
-  match '/home',   to: 'welcome#home',   via: 'get'
-  match '/about',   to: 'welcome#about',   via: 'get'
+  match '/home',       to: 'welcome#home',   via: 'get'
+  match '/about',      to: 'welcome#about',  via: 'get'
   match '/contacts',   to: 'contacts#new',   via: 'get'
-  root 'welcome#home'
 
-  resource :contacts, only: [:new, :create]
-  resources :articles
+  resource  :contacts, only: [:new, :create]
+  resources :articles do
+    resources :comments
+  end
+
+  root 'welcome#home'
 
   # Example resource route with options:
   #   resources :products do
