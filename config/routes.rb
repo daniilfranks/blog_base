@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-  get 'welcome/index'
-  get 'contacts' => 'contacts#new'
-  root 'welcome#index'
+  match '/home',   to: 'welcome#home',   via: 'get'
+  match '/about',   to: 'welcome#about',   via: 'get'
+  match '/contacts',   to: 'contacts#new',   via: 'get'
+  root 'welcome#home'
 
   resource :contacts, only: [:new, :create]
   resources :articles
