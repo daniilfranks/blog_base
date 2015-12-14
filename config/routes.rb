@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   match '/home',       to: 'welcome#home',   via: 'get'
   match '/about',      to: 'welcome#about',  via: 'get'
   match '/contacts',   to: 'contacts#new',   via: 'get'
