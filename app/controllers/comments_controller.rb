@@ -1,19 +1,29 @@
 class CommentsController < ApplicationController
+  before_filter :load_commentable
+
   def create
-    @article = Article.find(params[:article_id])
-    @comment = @article.comments.create(comment_params)
-    redirect_to article_path(@article)
+    @comment = @commentable.comments.new(strong_param)
+    @comment.user = current_user
+    if @comment.save
+      redirect_to @commentable, notice: 'Comment was successfully created.'
+    else
+      redirect_to @commentable, notice: @comment.errors.full_messages.to_sentence(words_connector: " and ")
+    end
   end
 
   def destroy
-    @article = Article.find(params[:article_id])
-    @comment = @article.comments.find(params[:id])
+    @comment = @commentable.comments.find(params[:id])
     @comment.destroy
-    redirect_to article_path(@article)
+    redirect_to @commentable
   end
 
   private
-  def comment_params
-    params.require(:comment).permit(:author, :body)
+  def strong_param
+    params.require(:comment).permit( :body, :user_id)
+  end
+
+  def load_commentable
+    resource, id = request.path.split('/')[1, 2]
+    @commentable = resource.singularize.classify.constantize.find(id)
   end
 end

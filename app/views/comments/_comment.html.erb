@@ -1,9 +1,24 @@
-<p>
-  <strong>Author:</strong>
-  <%= comment.author %>
-</p>
+<h3>Comments (<%= @commentable.comments.count %>)</h3>
+<% @commentable.comments.each do |comment| %>
 
-<p>
-  <strong>Comment:</strong>
-  <%= comment.body %>
-</p>
+    <p>
+      <b>Name:</b>
+      <%= comment.user.name %>
+    </p>
+
+    <p>
+      <b>Comment:</b>
+      <%= comment.body %>
+    </p>
+
+    <b>Data:</b>
+    <%= comment.created_at.strftime '%Y-%m-%d %H:%M' %>
+    </p>
+
+    <p>
+      <%= link_to 'Destroy', article_comment_path(@commentable, comment),
+                  :confirm => 'Are you sure?',
+                  :method => :delete %>
+    </p>
+
+<% end %>
