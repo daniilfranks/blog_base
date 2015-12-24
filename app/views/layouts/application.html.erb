@@ -9,25 +9,49 @@
 </head>
 <body>
 
-<ul>
-  <li><%= link_to "Home",    root_path %></li>
-  <li><%= link_to "Blog",    articles_path %></li>
-  <li><%= link_to "Contact",    contacts_path %></li>
-  <li><%= link_to "About",    about_path %></li>
-</ul>
+<div class="container">
+  <div class="row">
 
-<% if user_signed_in? %>
-    <span>Hi, <%= current_user.email %></span>
-    <%= link_to 'Settings', edit_user_registration_path %>
-    <%= link_to 'Output', destroy_user_session_path, :method => :delete %>
-<% else %>
-    <%= link_to 'Sign in', new_user_session_path %> or <%= link_to 'Sign up', new_user_registration_path %>
-<% end %>
+    <div class="col-md-6 col-sm-8 col-xs-8">
+      <ul>
+        <li><%= link_to "Home",    root_path %></li>
+        <li><%= link_to "Blog",    articles_path %></li>
+        <li><%= link_to "Contact",    contacts_path %></li>
+        <li><%= link_to "About",    about_path %></li>
+      </ul>
+    </div>
 
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
+    <div class="col-md-6 col-sm-4 col-xs-4">
+      <% if user_signed_in? %>
+          <span>Hi, <%= current_user.email %></span>
+          <%= link_to 'Settings', edit_user_registration_path %>
+          <%= link_to 'Output', destroy_user_session_path, :method => :delete %>
+      <% else %>
+          <%= link_to 'Sign in', new_user_session_path %> or <%= link_to 'Sign up', new_user_registration_path %>
+      <% end %>
+    </div>
 
-<%= yield %>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <%= yield %>
+    </div>
+  </div>
+</div>
+
 
 </body>
 </html>
